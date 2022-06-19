@@ -3,10 +3,9 @@ import { Paginator, Table } from "../../global/components";
 import { getRequest, putRequest } from "../../api";
 import ENDPOINTS from "../../api/endpoints";
 import moment from 'moment';
-import { Badge, Button, Col, Row, Spinner } from "reactstrap";
+import { Badge, Button, Col, Row } from "reactstrap";
 import { useNavigate } from "react-router";
 import { usePromiseTracker, trackPromise } from "react-promise-tracker";
-import LoadingOverlay from 'react-loading-overlay';
 
 export default function CallsPage() {
 
@@ -17,8 +16,6 @@ export default function CallsPage() {
 
     const [checkedCalls, setCheckedCalls] = useState([]);
     const [allChecked, setAllChecked] = useState(false);
-
-    const { promiseInProgress: fetchPromise } = usePromiseTracker({ area: 'fetch' })
 
     const navigate = useNavigate();
 
@@ -133,13 +130,6 @@ export default function CallsPage() {
 
             <br />
 
-            <LoadingOverlay active={fetchPromise} spinner={<Spinner />} styles={{
-                overlay: (base) => ({
-                    ...base,
-                    background: 'rgba(220,220,220,0.5)'
-                })
-            }}
-            >
                 <Table
                     data={data}
                     dataCount={dataCount}
@@ -148,8 +138,7 @@ export default function CallsPage() {
                     setCheckedList={setCheckedCalls}
                     allChecked={allChecked}
                     setAllChecked={setAllChecked}
-                />
-            </LoadingOverlay>
+            />
 
             <Paginator
                 dataCount={dataCount}
